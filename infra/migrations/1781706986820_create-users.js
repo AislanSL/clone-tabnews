@@ -5,14 +5,14 @@ exports.up = (pgm) => {
       primaryKey: true,
       default: pgm.func("gen_random_uuid()"),
     },
-    
+
     username: {
       type: "varchar(30)",
       notNull: true,
       unique: true,
     },
 
-    email : {
+    email: {
       type: "varchar(254)",
       notNull: true,
       unique: true,
@@ -20,22 +20,21 @@ exports.up = (pgm) => {
 
     password: {
       type: "varchar(60)",
-      notNull: true
+      notNull: true,
     },
 
     created_at: {
       type: "timestamptz",
       default: pgm.func("timezone('utc', now())"),
-      notNull: true
-
+      notNull: true,
     },
 
     updated_at: {
       type: "timestamptz",
       default: pgm.func("timezone('utc', now())"),
-      notNull: true
-    }
-  })
+      notNull: true,
+    },
+  });
 };
 
 exports.down = false;

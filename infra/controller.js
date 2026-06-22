@@ -2,7 +2,7 @@ import {
   InternalServerError,
   MethodNotAllwedError,
   ValidationError,
-  NotFoundError
+  NotFoundError,
 } from "./errors";
 
 function onNoMatchHandle(request, response) {

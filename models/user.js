@@ -2,11 +2,11 @@ import database from "infra/database.js";
 import { NotFoundError, ValidationError } from "infra/errors.js";
 
 async function findOneByUsername(username) {
-  const userFound = await runSelectQuery(username)
+  const userFound = await runSelectQuery(username);
 
-  return userFound
+  return userFound;
 
-    async function runSelectQuery(username) {
+  async function runSelectQuery(username) {
     const results = await database.query({
       text: `
         SELECT  
@@ -23,12 +23,12 @@ async function findOneByUsername(username) {
 
     if (results.rowCount === 0) {
       throw new NotFoundError({
-                message: "O username não encontrado",
+        message: "O username não encontrado",
         action: "Verifique o username",
-      })
+      });
     }
 
-    return results.rows[0]
+    return results.rows[0];
   }
 }
 
@@ -104,7 +104,7 @@ async function create(userInputValues) {
 
 const user = {
   create,
-  findOneByUsername
+  findOneByUsername,
 };
 
 export default user;
