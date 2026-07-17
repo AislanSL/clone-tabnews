@@ -39,7 +39,12 @@ describe("Use case: Registration Flow (all successful)", () => {
   })
 
   test("Receive activation email", async () => {
+    const lastEmail = await orchestrator.getLastemail()
 
+    expect(lastEmail.sender).toBe("<contato@ideiasnest.com.br>")
+    expect(lastEmail.recipients[0]).toBe("<registration.flow@curso.dev>")
+    expect(lastEmail.subject).toBe("Ative seu cadastro no IdeiasNest!")
+    expect(lastEmail.text).toContain("RegistrationFlow")
   })
 
   test("Active account", async () => {
