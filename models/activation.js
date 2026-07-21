@@ -1,15 +1,15 @@
-import database from 'infra/database';
-import email from 'infra/email.js'
-import webserver from 'infra/webserver';
-import user from './user';
+import database from "infra/database";
+import email from "infra/email.js";
+import webserver from "infra/webserver";
+import user from "./user";
 
 const EXPIRATION_IN_MILLISECONDS = 60 * 15 * 1000; // 15 minutes
 
 async function create(userId) {
-  const expiresAt = new Date(Date.now() + EXPIRATION_IN_MILLISECONDS)
+  const expiresAt = new Date(Date.now() + EXPIRATION_IN_MILLISECONDS);
 
-  const newToken = await runInsertQuery(userId, expiresAt)
-  return newToken
+  const newToken = await runInsertQuery(userId, expiresAt);
+  return newToken;
 
   async function runInsertQuery(userId, expiresAt) {
     const results = await database.query({
@@ -21,16 +21,16 @@ async function create(userId) {
         RETURNING
           *
       ;`,
-      values: [userId, expiresAt]
-    })
+      values: [userId, expiresAt],
+    });
 
-    return results.rows[0]
+    return results.rows[0];
   }
 }
 
 async function findOneValidById(tokenId) {
-  const activationTokenObject = await renSelectQuery(tokenId) 
-  return activationTokenObject
+  const activationTokenObject = await renSelectQuery(tokenId);
+  return activationTokenObject;
 
   async function renSelectQuery(tokenId) {
     const results = await database.query({
@@ -46,12 +46,11 @@ async function findOneValidById(tokenId) {
         LIMIT 
           1
       ;`,
-      values: [tokenId]
-    })
+      values: [tokenId],
+    });
 
-    return results.rows[0]
+    return results.rows[0];
   }
-  
 }
 
 async function sendEmailToUser(user, activationToken) {
@@ -65,12 +64,12 @@ ${webserver.origin}/cadastro/ativar/${activationToken.id}
 
 Atenciosamente,
 Equipe IdeiasNest`,
-  })
+  });
 }
 
 async function markTokenAsUsed(activationTokenId) {
-  const usedActivationToken = await runUpdateQuery(activationTokenId)
-  return usedActivationToken
+  const usedActivationToken = await runUpdateQuery(activationTokenId);
+  return usedActivationToken;
 
   async function runUpdateQuery(activationTokenId) {
     const results = await database.query({
@@ -86,15 +85,15 @@ async function markTokenAsUsed(activationTokenId) {
           *
       ;`,
       values: [activationTokenId],
-    })
+    });
 
-    return results.rows[0]
+    return results.rows[0];
   }
 }
 
 async function activateUserByUserId(userId) {
-  const activatedUser = await user.setFeatures(userId, ["create:session"])
-  return activatedUser
+  const activatedUser = await user.setFeatures(userId, ["create:session"]);
+  return activatedUser;
 }
 
 const activation = {
@@ -102,7 +101,7 @@ const activation = {
   findOneValidById,
   sendEmailToUser,
   markTokenAsUsed,
-  activateUserByUserId
-}
+  activateUserByUserId,
+};
 
-export default activation
+export default activation;

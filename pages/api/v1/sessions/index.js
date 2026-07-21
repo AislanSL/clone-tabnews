@@ -3,9 +3,14 @@ import controller from "infra/controller";
 import authentication from "models/authentication.js";
 import session from "models/session.js";
 
+console.log(controller);
+console.log(typeof controller.injectAnonymousOrUser);
+console.log(controller.injectAnonymousOrUser);
+
 const router = createRouter();
 
-router.post(postHandler);
+router.use(controller.injectAnonymousOrUser);
+router.post(controller.canRequest("create:session"), postHandler);
 router.delete(deleteHandler);
 
 export default router.handler(controller.errorHandlers);

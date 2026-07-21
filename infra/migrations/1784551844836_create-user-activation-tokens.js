@@ -13,7 +13,7 @@ exports.up = (pgm) => {
 
     user_id: {
       type: "uuid",
-      notNull: true
+      notNull: true,
     },
 
     expires_at: {
@@ -32,7 +32,7 @@ exports.up = (pgm) => {
       default: pgm.func("timezone('utc', now())"),
       notNull: true,
     },
-  })
+  });
 };
 
 exports.down = () => false;
