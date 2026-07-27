@@ -13,7 +13,7 @@ beforeAll(async () => {
 describe("Use case: Registration Flow (all successful)", () => {
   let createUserResponseBody;
   let activationTokenId;
-  let createSessionsRespondeBody
+  let createSessionsRespondeBody;
 
   test("Create user account", async () => {
     const createUserResponse = await fetch(
@@ -108,14 +108,14 @@ describe("Use case: Registration Flow (all successful)", () => {
   test("Get user information", async () => {
     const userResponse = await fetch("http://localhost:3000/api/v1/user", {
       headers: {
-        cookie: `session_id=${createSessionsRespondeBody.token}`
-      }
-    })
+        cookie: `session_id=${createSessionsRespondeBody.token}`,
+      },
+    });
 
-    expect(userResponse.status).toBe(200)
+    expect(userResponse.status).toBe(200);
 
-    const userResponsebody = await userResponse.json()
+    const userResponsebody = await userResponse.json();
 
-    expect(userResponsebody.id).toBe(createUserResponseBody.id)
+    expect(userResponsebody.id).toBe(createUserResponseBody.id);
   });
 });

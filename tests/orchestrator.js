@@ -92,7 +92,7 @@ function extractUUID(text) {
 }
 
 async function activateUser(inactiveUser) {
-  return await activation.activateUserByUserId(inactiveUser.id)
+  return await activation.activateUserByUserId(inactiveUser.id);
 }
 
 const orchestrator = {
@@ -104,6 +104,6 @@ const orchestrator = {
   deleteAllEmails,
   getLastemail,
   extractUUID,
-  activateUser
+  activateUser,
 };
 export default orchestrator;
