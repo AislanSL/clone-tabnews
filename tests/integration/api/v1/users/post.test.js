@@ -160,6 +160,5 @@ describe("POST /api/v1/users", () => {
         status_code: 403,
       });
     });
-  })
-
+  });
 });

@@ -4,8 +4,9 @@ import user from "models/user.js";
 
 const router = createRouter();
 
+router.use(controller.injectAnonymousOrUser);
 router.get(getHandler);
-router.patch(pacthHandler);
+router.patch(controller.canRequest("update:user"), pacthHandler);
 
 export default router.handler(controller.errorHandlers);
 
