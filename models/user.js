@@ -279,7 +279,7 @@ const user = {
   findOneByEmail,
   update,
   setFeatures,
-  addFeatures
+  addFeatures,
 };
 
 export default user;
